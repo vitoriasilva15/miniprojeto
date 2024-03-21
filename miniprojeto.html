@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projeto Livraria</title>
+  </head>
+  <body>
+    <script>
+      const Livros = [];
+
+      function adicionarLivro(nome, preco, codigo, descricao) {
+        Livros.push({
+          nome: nome,
+          preco: preco,
+          codigo: codigo,
+          descricao: descricao,
+        });
+        alert("Livro adicionado com sucesso!");
+      }
+
+      function buscarLivro(nome, codigo) {
+        const livroEncontrado = Livros.find(
+          (livro) => livro.nome == nome && livro.codigo == codigo
+        );
+        if (livroEncontrado) {
+          alert(JSON.stringify(livroEncontrado));
+        } else {
+          alert("Livro não encontrado.");
+        }
+      }
+
+      function atualizarLivro(nome, codigo, novoPreco, novaDescricao) {
+        const atualizar = Livros.findIndex(
+          (livro) => livro.nome == nome && livro.codigo == codigo
+        );
+        if (atualizar !== -1) {
+          Livros[atualizar].preco = novoPreco;
+          Livros[atualizar].descricao = novaDescricao;
+          alert("Informações do livro atualizadas com sucesso!");
+        } else {
+          alert("Livro não encontrado.");
+        }
+      }
+
+      function visualizarTodosOsLivros() {
+        var exibir_livros = [];
+        for(var i = 0; i < Livros.length; i++){
+            exibir_livros.push(Livros[i].nome)
+        }
+        alert(exibir_livros);
+      }
+
+      function removerLivro(nome) {
+        for (let i = 0; i < Livros.length; i++) {
+            if (Livros[i].nome === nome) {
+                Livros.splice(i, 1);
+                alert("Livro removido com sucesso!");
+                return; 
+            }
+        }
+        alert("Livro não encontrado.");
+    }
+
+      var opcao = prompt(
+        "--- Bookstore ---\n Escolha uma opção:\n1. Adicionar Livro\n2. Buscar Livro\n3. Atualizar informações sobre o livro\n4. Remover Livro\n 0. Sair"
+      );
+
+      do {
+
+        if (opcao == "0") {
+            break;
+        }
+        else if( opcao == "1"){
+          
+            const nomeLivro = prompt("Digite o nome do livro:");
+            const precoLivro = prompt("Digite o preço do livro:");
+            const codigoLivro = prompt("Digite o código do livro: ")
+            const descricaoLivro = prompt(
+              "Digite a descrição do livro(autor, editora e ano de publicação):"
+            );
+            adicionarLivro(
+              nomeLivro,
+              precoLivro,
+              codigoLivro,
+              descricaoLivro
+            );
+        }
+        else if (opcao == "2"){
+            const opcaoBusca = prompt("Escolha uma opção: \n 1.Buscar livro específico\n 2.Visualizar todos os livros")
+            if(opcaoBusca == "1"){
+                const nomeLivroBusca = prompt(
+                "Digite o nome do livro que deseja buscar:"
+                );
+                const codigoBusca = prompt (
+                    "Digite o codigo da busca do livro"
+                );
+                buscarLivro(nomeLivroBusca, codigoBusca);
+            }else if(opcaoBusca == "2"){
+                visualizarTodosOsLivros();
+            }
+        }
+        else if (opcao == "3"){
+            const nomeLivroAtualizacao = prompt(
+              "Digite o nome do livro que deseja atualizar:"
+            );
+            const codigoLivroAtualizacao = prompt(
+              "Digite o codigo do livro que deseja atualizar:"
+            );
+            const novoPrecoLivro = prompt("Digite o novo preço do livro:");
+            const novaDescricaoLivro = prompt(
+              "Digite a nova descrição do livro:"
+            );
+            atualizarLivro(
+              nomeLivroAtualizacao,
+              codigoLivroAtualizacao,
+              novoPrecoLivro,
+              novaDescricaoLivro
+            );
+        }
+        else if(opcao == "4"){
+            const nomeLivroRemocao = prompt(
+              "Digite o nome do livro que deseja remover:"
+            );
+            removerLivro(nomeLivroRemocao);
+        }
+        else {
+            alert('Opção inválida, tente novamente')
+        }
+        var opcao = prompt(
+          "--- Bookstore ---\n Escolha uma opção:\n1. Adicionar Livro\n2. Buscar Livro\n3. Atualizar informações sobre o livro\n4. Remover Livro\n 0. Sair"
+        );
+
+      } while (opcao != "0");
+    </script>
+  </body>
+</html>
